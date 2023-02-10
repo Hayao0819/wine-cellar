@@ -2,6 +2,7 @@ package conf
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"os"
 
@@ -60,7 +61,7 @@ func readVer(jsonPath string)(*[]version, error){
 	return &wineVer, nil
 }
 
-func GetWineVersions(jsonPath string)(*[]wine.Version, error){
+func GetVersions(jsonPath string)(*[]wine.Version, error){
 	version , err := readVer(jsonPath)
 	if err != nil{
 		return nil, err
@@ -73,7 +74,38 @@ func GetWineVersions(jsonPath string)(*[]wine.Version, error){
 	return &wineVersion, nil
 }
 
-func GetWineEnv(jsonPath string)(*[]wine.Env, error){
-	// Todo
-	return nil,nil
+func getVerisonFromName(name string, vers *[]wine.Version)(*wine.Version, error){
+	for _, ver := range *vers{
+		if ver.Name == name{
+			return &ver, nil
+		}
+	}
+	return nil, errors.New("cant find such name")
+}
+
+func GetEnvs(envJson, verJson string)(*[]wine.Env, error){
+	env , err := readEnv(envJson)
+	if err != nil{
+		return nil, err
+	}
+	
+
+	var wineVer *wine.Version
+	var wineEnv wine.Env
+	var wineEnvs []wine.Env
+
+	wineVers , err := GetVersions(verJson)
+	if err != nil{
+		return nil, err
+	}
+
+	for _, env := range *env{
+		wineVer, err = getVerisonFromName(env.Name, wineVers)
+		if err != nil{
+			return nil, err
+		}
+		wineEnv = wine.NewEnv(env.Name, env.Arch, env.Prefix, *wineVer)
+		wineEnvs=append(wineEnvs, wineEnv)
+	}
+	return &wineEnvs,nil
 }
