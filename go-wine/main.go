@@ -33,7 +33,8 @@ func NewVersion(name string, cmd string, no float32) Version {
 	return Version{Name: name, Cmd: cmd , No: no}
 }
 
-func NewWineEnv(name string, arch arch, prefix string, version Version) Env {
+func NewEnv(name string, archStr string, prefix string, version Version) Env {
+	arch := *ArchFromStr(archStr)
 	return Env{Name: name, Arch: arch, Prefix: prefix, Version: version}
 }
 
@@ -95,7 +96,7 @@ func getWineArch(prefix string)(string, error){
 
 // WINEPREFIX/drive_c/windows/syswow64があればwin64、なければwin32
 // winetricksも使ってる方法らしいです
-func getWineArch(prefix string)(*arch, error){
+func getArch(prefix string)(*arch, error){
 	syswow64 := fmt.Sprintf("%s/drive_c/windows/syswow64", prefix)
 	system32 := fmt.Sprintf("%s/drive_c/windows/system32", prefix)
 	if isDir(syswow64){
@@ -114,12 +115,12 @@ func GetLocalWineEnv (cmd,prefix string)(*Env, error){
 		return nil, ErrFailedGetWineVer
 	}
 
-	arch, err := getWineArch(prefix)
+	arch, err := getArch(prefix)
 	if err != nil{
 		return nil, err
 	}
 
-	wine := NewWineEnv(name,*arch,prefix,*ver)
+	wine := NewEnv(name,arch.Name,prefix,*ver)
 
 	return &wine,nil
 }
