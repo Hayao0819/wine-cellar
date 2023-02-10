@@ -1,0 +1,9 @@
+[
+        {
+            "name": "Default",
+            "arch": "win64",
+            "prefix": "/Users/hayao/.wine",
+            "version":"wine"
+        }
+]
+
