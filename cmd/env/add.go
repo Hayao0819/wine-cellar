@@ -10,7 +10,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// env/addCmd represents the env/add command
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "WINEPREFIXを登録",

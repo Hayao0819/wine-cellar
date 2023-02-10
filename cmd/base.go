@@ -1,4 +1,5 @@
 package cmd
 
-var configFile string
+var envConfFile string
+var verConfFile string
 
