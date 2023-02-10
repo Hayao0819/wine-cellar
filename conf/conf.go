@@ -60,9 +60,17 @@ func readVer(jsonPath string)(*[]version, error){
 	return &wineVer, nil
 }
 
-func GetWineVersion(jsonPath string)(*[]wine.Version, error){
-	// Todo
-	return nil, nil
+func GetWineVersions(jsonPath string)(*[]wine.Version, error){
+	version , err := readVer(jsonPath)
+	if err != nil{
+		return nil, err
+	}
+	var wineVersion []wine.Version
+	for _, ver := range *version{
+		wineVersion=append(wineVersion, wine.NewVersion(ver.Name, ver.Cmd, ver.No))
+	}
+
+	return &wineVersion, nil
 }
 
 func GetWineEnv(jsonPath string)(*[]wine.Env, error){
