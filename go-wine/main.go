@@ -21,7 +21,7 @@ type arch struct{
 	Name string
 }
 
-type Wine struct {
+type Env struct {
 	Name string
 	Arch arch
 	Prefix string
@@ -33,8 +33,8 @@ func NewVersion(name string, cmd string, no float32) Version {
 	return Version{Name: name, Cmd: cmd , No: no}
 }
 
-func NewWine(name string, arch arch, prefix string, version Version) Wine {
-	return Wine{Name: name, Arch: arch, Prefix: prefix, Version: version}
+func NewWineEnv(name string, arch arch, prefix string, version Version) Env {
+	return Env{Name: name, Arch: arch, Prefix: prefix, Version: version}
 }
 
 
@@ -107,7 +107,7 @@ func getWineArch(prefix string)(*arch, error){
 }
 
 
-func GetLocalWine (cmd,prefix string)(*Wine, error){
+func GetLocalWineEnv (cmd,prefix string)(*Env, error){
 	name := "Default wine prefix"
 	ver, err := GetLocalVersion(cmd)
 	if err!=nil{
@@ -119,7 +119,19 @@ func GetLocalWine (cmd,prefix string)(*Wine, error){
 		return nil, err
 	}
 
-	wine := NewWine(name,*arch,prefix,*ver)
+	wine := NewWineEnv(name,*arch,prefix,*ver)
 
 	return &wine,nil
+}
+
+func ArchFromStr(arch string)(*arch){
+	arch = strings.ToLower(arch)
+	switch(arch){
+		case "win64":
+			return &Win64
+		case "win32":
+			return &Win32
+		default:
+			return nil
+	}
 }

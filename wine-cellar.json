@@ -1,0 +1,17 @@
+{
+    "Env":[
+        {
+            "Name": "Default",
+            "Arch": "win64",
+            "Prefix": "/Users/hayao/.wine",
+            "Version":"wine"
+        }
+    ],
+    "Version":[
+        {
+            "Name": "wine",
+            "Cmd": "wine",
+            "Version": ""
+        }
+    ]
+}
