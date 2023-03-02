@@ -7,7 +7,7 @@ import (
 )
 
 var VersionCmd = &cobra.Command{
-	Use:   "env",
+	Use:   "ver",
 	Short: "Wine実行ファイルを管理",
 	Long: `wineコマンドの追加や削除を行います。`,
 }

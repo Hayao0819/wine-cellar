@@ -11,6 +11,6 @@ import (
 
 
 func init() {
-	rootCmd.AddCommand(env.EnvCmd)
-	rootCmd.AddCommand(version.VersionCmd)
+	root.AddCommand(env.EnvCmd)
+	root.AddCommand(version.VersionCmd)
 }
