@@ -34,6 +34,7 @@ func rootCmd ()(*cobra.Command){
 		env.Root(), 
 		version.Root(),
 		run.Root(),
+		newInitCmd(),
 	)
 
 	return &cmd
