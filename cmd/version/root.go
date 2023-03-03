@@ -6,7 +6,7 @@ import (
 
 
 
-func NewVersionRoot()(*cobra.Command){
+func Root()(*cobra.Command){
 	cmd := cobra.Command{
 		Use:   "ver",
 		Short: "Wine実行ファイルを管理",

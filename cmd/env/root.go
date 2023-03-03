@@ -6,7 +6,7 @@ import (
 
 
 
-func NewEnvRoot ()(*cobra.Command){
+func Root ()(*cobra.Command){
 	cmd := cobra.Command{
 		Use:   "env",
 		Short: "WINEPREFIXを管理",

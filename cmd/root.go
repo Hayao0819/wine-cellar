@@ -31,9 +31,9 @@ func rootCmd ()(*cobra.Command){
 	}() ,"config dir")
 
 	cmd.AddCommand(
-		env.NewEnvRoot(), 
-		version.NewVersionRoot(),
-		run.NewRunRoot(),
+		env.Root(), 
+		version.Root(),
+		run.Root(),
 	)
 
 	return &cmd

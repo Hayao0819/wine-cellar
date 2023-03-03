@@ -2,7 +2,7 @@ package run
 
 import "github.com/spf13/cobra"
 
-func NewRunRoot()(*cobra.Command){
+func Root()(*cobra.Command){
 	cmd := cobra.Command{
 		Use: "run",
 		Short: "コマンドを実行",
