@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/Hayao0819/wine-cellar/cmd/env"
 	"github.com/Hayao0819/wine-cellar/cmd/version"
+		"github.com/Hayao0819/wine-cellar/cmd/run"
 )
-
 
 func rootCmd ()(*cobra.Command){
 	cmd := cobra.Command{
@@ -30,7 +30,11 @@ func rootCmd ()(*cobra.Command){
 		return path.Join(h, ".wine-cellar")
 	}() ,"config dir")
 
-	cmd.AddCommand(env.NewEnvRoot(), version.NewVersionRoot())
+	cmd.AddCommand(
+		env.NewEnvRoot(), 
+		version.NewVersionRoot(),
+		run.NewRunRoot(),
+	)
 
 	return &cmd
 }
