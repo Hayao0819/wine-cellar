@@ -112,3 +112,23 @@ func GetEnvs()(*[]wine.Env, error){
 	}
 	return &wineEnvs,nil
 }
+
+func WriteEnvs(wineEnv *[]wine.Env)(error){
+	s := []env{}
+	for _, w := range *wineEnv{
+		e:= env{
+			Name: w.Name,
+			Arch: w.Arch.Name,
+			Prefix: w.Prefix,
+			Version: w.Version.Name,
+		}
+		s = append(s, e)
+	}
+
+	json, err := json.Marshal(s)
+	if err !=nil{
+		return err
+	}
+	return ioutil.WriteFile(EnvConfFile, json, 0644)
+
+}
