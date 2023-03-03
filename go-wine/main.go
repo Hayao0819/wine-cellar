@@ -47,7 +47,7 @@ func GetLocalVersion(cmd string) (*Version, error){
 	var err error
 
 	// Get command result
-	cmdResult , err := exec.Command("wine", "--version").Output()
+	cmdResult , err := exec.Command(cmd, "--version").Output()
 	if err!=nil{
 		return nil, ErrFailedExecWine
 	}
