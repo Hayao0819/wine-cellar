@@ -6,6 +6,8 @@ import (
 
 	"github.com/Hayao0819/wine-cellar/conf"
 	"github.com/spf13/cobra"
+	"github.com/Hayao0819/wine-cellar/cmd/env"
+	"github.com/Hayao0819/wine-cellar/cmd/version"
 )
 
 
@@ -28,13 +30,14 @@ func rootCmd ()(*cobra.Command){
 		return path.Join(h, ".wine-cellar")
 	}() ,"config dir")
 
+	cmd.AddCommand(env.EnvCmd, version.VersionCmd)
+
 	return &cmd
 }
 
-var root *cobra.Command = rootCmd()
 
 func Execute() {
-	err := root.Execute()
+	err := rootCmd().Execute()
 	if err != nil {
 		os.Exit(1)
 	}

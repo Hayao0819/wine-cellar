@@ -1,7 +1,4 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
-package cmd
+package env
 
 import (
 	"github.com/Hayao0819/wine-cellar/conf"
