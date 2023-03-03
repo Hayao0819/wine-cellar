@@ -7,23 +7,24 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var addCmd = &cobra.Command{
-	Use:   "add",
-	Short: "WINEPREFIXを登録",
-	Long: `WINEPREFIXをwine-cellarに登録し、管理対象にします。`,
-	RunE: func(cmd *cobra.Command, args []string) error{
-		envs, err := conf.GetEnvs()
-		if err !=nil{
-			return err
-		}
+
+func newAddCmd()(*cobra.Command){
+	cmd := cobra.Command{
+		Use:   "add",
+		Short: "WINEPREFIXを登録",
+		Long: `WINEPREFIXをwine-cellarに登録し、管理対象にします。`,
+		RunE: func(cmd *cobra.Command, args []string) error{
+			envs, err := conf.GetEnvs()
+			if err !=nil{
+				return err
+			}
 
 
-		*envs=append(*envs, wine.Env{}) //具体的な情報付与はあとで実装する
+			*envs=append(*envs, wine.Env{}) //具体的な情報付与はあとで実装する
 
-		return conf.WriteEnvs(envs)
-	},
-}
+			return conf.WriteEnvs(envs)
+		},
+	}
 
-func init() {
-	EnvCmd.AddCommand(addCmd)
+	return &cmd
 }

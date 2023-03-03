@@ -30,7 +30,7 @@ func rootCmd ()(*cobra.Command){
 		return path.Join(h, ".wine-cellar")
 	}() ,"config dir")
 
-	cmd.AddCommand(env.EnvCmd, version.NewVersionRoot())
+	cmd.AddCommand(env.NewEnvRoot(), version.NewVersionRoot())
 
 	return &cmd
 }
