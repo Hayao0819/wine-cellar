@@ -13,7 +13,7 @@ func NewVersionRoot()(*cobra.Command){
 		Long: `wineコマンドの追加や削除を行います。`,
 	}
 
-	cmd.AddCommand(newAddCmd())
+	cmd.AddCommand(newAddCmd() ,newListCmd())
 
 	return &cmd
 }
