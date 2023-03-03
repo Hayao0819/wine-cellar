@@ -132,3 +132,21 @@ func WriteEnvs(wineEnv *[]wine.Env)(error){
 	return ioutil.WriteFile(EnvConfFile, json, 0644)
 
 }
+
+func WriteVersions(wineVer *[]wine.Version)error{
+	s := []version{}
+	for _, w := range *wineVer{
+		v:= version{
+			Name: w.Name,
+			Cmd: w.Cmd,
+			No: w.No,
+		}
+		s = append(s, v)
+	}
+
+	json, err := json.Marshal(s)
+	if err !=nil{
+		return err
+	}
+	return ioutil.WriteFile(VerConfFile, json, 0644)
+}

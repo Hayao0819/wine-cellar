@@ -2,11 +2,11 @@ package wine
 
 import (
 	"fmt"
+	"path"
 	//"os"
 	"os/exec"
 	"strconv"
 	"strings"
-
 	//"path/filepath"
 )
 
@@ -42,7 +42,7 @@ func NewEnv(name string, archStr string, prefix string, version Version) Env {
 
 
 func GetLocalVersion(cmd string) (*Version, error){
-	var name string
+	var wineVerString string
 	var no float64 //strconv.ParseFloatがfloat64のため。あとでfloat32に変換する。
 	var err error
 
@@ -53,17 +53,17 @@ func GetLocalVersion(cmd string) (*Version, error){
 	}
 
 	// get wine-x.x string
-	name = strings.Split(string(cmdResult), " ")[0]
+	wineVerString = strings.Split(string(cmdResult), " ")[0]
 
 	// Convert string to float
 	//no = float32(strings.Split(name, "-")[1])
-	no, err = strconv.ParseFloat(strings.Split(name, "-")[1], 32)
+	no, err = strconv.ParseFloat(strings.Split(wineVerString, "-")[1], 32)
 	if err != nil{
 		return nil, ErrFailedConvToFloat
 	}
 
 
-	ver := NewVersion(name, cmd, float32(no))
+	ver := NewVersion(path.Base(cmd), cmd, float32(no))
 
 	return &ver,nil
 }
