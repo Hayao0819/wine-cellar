@@ -1,8 +1,6 @@
 package version
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
 )
 
@@ -12,9 +10,3 @@ var VersionCmd = &cobra.Command{
 	Long: `wineコマンドの追加や削除を行います。`,
 }
 
-func Execute() {
-	err := VersionCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
-}
