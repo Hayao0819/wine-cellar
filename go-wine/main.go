@@ -28,6 +28,9 @@ type Env struct {
 	Version Version
 }
 
+type EnvList []Env
+type VersionList []Version
+
 
 func NewVersion(name string, cmd string, no float32) Version {
 	return Version{Name: name, Cmd: cmd , No: no}
@@ -38,6 +41,23 @@ func NewEnv(name string, archStr string, prefix string, version Version) Env {
 	return Env{Name: name, Arch: arch, Prefix: prefix, Version: version}
 }
 
+func (list *EnvList)GetFromName(name string)(*Env, error){
+	for _, e := range *list{
+		if e.Name == name{
+			return &e, nil
+		}
+	}
+	return nil, ErrNoSuchEnv
+}
+
+func (list *VersionList)GetFromName(name string)(*Version, error){
+	for _, e := range *list{
+		if e.Name == name{
+			return &e, nil
+		}
+	}
+	return nil, ErrNoSuchVersion
+}
 
 
 
