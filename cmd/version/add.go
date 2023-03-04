@@ -10,7 +10,7 @@ import (
 
 func newAddCmd()(*cobra.Command){
 	cmd := cobra.Command{
-		Use:   "add",
+		Use:   "add Command",
 		Short: "Wineコマンドを追加",
 		Long: `WINEPREFIXをwine-cellarに登録し、管理対象にします。`,
 		Args: cobra.ExactArgs(1),

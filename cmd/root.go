@@ -8,7 +8,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/Hayao0819/wine-cellar/cmd/env"
 	"github.com/Hayao0819/wine-cellar/cmd/version"
-		"github.com/Hayao0819/wine-cellar/cmd/run"
+	"github.com/Hayao0819/wine-cellar/cmd/run"
+	"github.com/Hayao0819/wine-cellar/cmd/set"
 )
 
 func rootCmd ()(*cobra.Command){
@@ -34,6 +35,7 @@ func rootCmd ()(*cobra.Command){
 		env.Root(), 
 		version.Root(),
 		run.Root(),
+		set.Root(),
 		newInitCmd(),
 	)
 

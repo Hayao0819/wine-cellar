@@ -6,9 +6,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	wine "github.com/Hayao0819/wine-cellar/go-wine"
 )
+
+var ErrNoSuchVersion error = errors.New("cant find such version")
+var ErrNoSuchEnv error = errors.New("cant find such environment")
 
 type version struct{
 	Name string `json:"name"`
@@ -81,7 +85,7 @@ func getVerisonFromName(name string, vers *[]wine.Version)(*wine.Version, error)
 			return &ver, nil
 		}
 	}
-	return nil, errors.New("cant find such name")
+	return nil, ErrNoSuchVersion
 }
 
 func GetEnvs()(*[]wine.Env, error){
@@ -149,4 +153,40 @@ func WriteVersions(wineVer *[]wine.Version)error{
 		return err
 	}
 	return ioutil.WriteFile(VerConfFile, json, 0644)
+}
+
+func SetCurrentEnv(env *wine.Env)(error){
+	statusFile, err := os.Create(CurrentFile)
+	if err !=nil{
+		return err
+	}
+
+
+	if _, err := statusFile.WriteString(env.Name); err !=nil{
+		return err
+	}
+
+	return nil
+}
+
+func GetCurrentEnv()(*wine.Env, error){
+	status, err := os.ReadFile(CurrentFile)
+	if err !=nil{
+		return nil, err
+	}
+
+	currentEnvName := strings.Split(string(status), "\n")[0]
+
+
+	envs, err := GetEnvs()
+	if err !=nil{
+		return nil, err
+	}
+
+	for _, e:= range *envs{
+		if e.Name==currentEnvName{
+			return &e, err
+		}
+	}
+	return nil, ErrNoSuchEnv
 }
