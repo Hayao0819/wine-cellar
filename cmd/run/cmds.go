@@ -22,6 +22,9 @@ func newCmd(runcmd string)(*cobra.Command){
 			println(currentEnv.Name)
 
 			winecmd := exec.Command(currentEnv.Version.Cmd, append([]string{runcmd}, args...)...)
+			winecmd.Env=os.Environ()
+			winecmd.Env=append(winecmd.Env, "WINEPREFIX="+currentEnv.Prefix)
+			winecmd.Env=append(winecmd.Env, "WINEARCH="+currentEnv.Arch.Name)
 			winecmd.Stdin=os.Stdin
 			winecmd.Stderr=os.Stderr
 			winecmd.Stdout=os.Stdout
