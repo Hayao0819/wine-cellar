@@ -23,7 +23,7 @@ func newUpdateCmd()(*cobra.Command){
 			}
 
 			// 定義
-			newList := []wine.Version{}
+			newList := wine.VersionList{}
 			errs := []string{}
 			
 

@@ -122,7 +122,7 @@ func GetEnvs()(*wine.EnvList, error){
 	return &wineEnvs,nil
 }
 
-func WriteEnvs(wineEnv *[]wine.Env)(error){
+func WriteEnvs(wineEnv *wine.EnvList)(error){
 	s := []env{}
 	for _, w := range *wineEnv{
 		e:= env{
@@ -142,7 +142,7 @@ func WriteEnvs(wineEnv *[]wine.Env)(error){
 
 }
 
-func WriteVersions(wineVer *[]wine.Version)error{
+func WriteVersions(wineVer *wine.VersionList)error{
 	s := []version{}
 	for _, w := range *wineVer{
 		v:= version{
