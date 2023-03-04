@@ -2,7 +2,7 @@ package conf
 
 import (
 	"encoding/json"
-	"errors"
+	//"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -11,8 +11,10 @@ import (
 	wine "github.com/Hayao0819/wine-cellar/go-wine"
 )
 
+/*
 var ErrNoSuchVersion error = errors.New("cant find such version")
 var ErrNoSuchEnv error = errors.New("cant find such environment")
+*/
 
 type version struct{
 	Name string `json:"name"`
@@ -66,12 +68,12 @@ func readVer()(*[]version, error){
 	return &wineVer, nil
 }
 
-func GetVersions()(*[]wine.Version, error){
+func GetVersions()(*wine.VersionList, error){
 	version , err := readVer()
 	if err != nil{
 		return nil, err
 	}
-	var wineVersion []wine.Version
+	var wineVersion wine.VersionList
 	for _, ver := range *version{
 		wineVersion=append(wineVersion, wine.NewVersion(ver.Name, ver.Cmd, ver.No))
 	}
@@ -79,6 +81,7 @@ func GetVersions()(*[]wine.Version, error){
 	return &wineVersion, nil
 }
 
+/*
 func getVerisonFromName(name string, vers *[]wine.Version)(*wine.Version, error){
 	for _, ver := range *vers{
 		if ver.Name == name{
@@ -87,8 +90,9 @@ func getVerisonFromName(name string, vers *[]wine.Version)(*wine.Version, error)
 	}
 	return nil, ErrNoSuchVersion
 }
+*/
 
-func GetEnvs()(*[]wine.Env, error){
+func GetEnvs()(*wine.EnvList, error){
 	env , err := readEnv()
 	if err != nil{
 		return nil, err
@@ -97,7 +101,7 @@ func GetEnvs()(*[]wine.Env, error){
 
 	var wineVer *wine.Version
 	var wineEnv wine.Env
-	var wineEnvs []wine.Env
+	var wineEnvs wine.EnvList
 
 	wineVers , err := GetVersions()
 	if err != nil{
@@ -105,7 +109,8 @@ func GetEnvs()(*[]wine.Env, error){
 	}
 
 	for _, env := range *env{
-		wineVer, err = getVerisonFromName(env.Version, wineVers)
+		//wineVer, err = getVerisonFromName(env.Version, wineVers)
+		wineVer, err =wineVers.GetFromName(env.Version)
 		if err != nil{
 			fmt.Fprintln(os.Stderr, "Error found in \"" + env.Name + "\"")
 			return nil, err
@@ -188,5 +193,5 @@ func GetCurrentEnv()(*wine.Env, error){
 			return &e, err
 		}
 	}
-	return nil, ErrNoSuchEnv
+	return nil, wine.ErrNoSuchEnv
 }
