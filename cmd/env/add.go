@@ -1,11 +1,8 @@
 package env
 
 import (
-	"errors"
-
 	"github.com/Hayao0819/wine-cellar/conf"
 	"github.com/Hayao0819/wine-cellar/go-wine"
-
 	"github.com/spf13/cobra"
 )
 
@@ -27,12 +24,7 @@ func newAddCmd()(*cobra.Command){
 				if err !=nil{
 					return nil, err
 				}
-				for _,v := range *vers{
-					if v.Name==args[3]{
-						return &v, nil
-					}
-				}
-				return nil, errors.New("cant find such version")
+				return vers.GetFromName(args[3])
 			}()
 			if err!=nil{
 				return err

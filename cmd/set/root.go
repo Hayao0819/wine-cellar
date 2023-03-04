@@ -1,8 +1,6 @@
 package set
 
 import (
-	"errors"
-
 	"github.com/Hayao0819/wine-cellar/conf"
 	"github.com/spf13/cobra"
 )
@@ -20,14 +18,13 @@ func Root()(*cobra.Command){
 			if err !=nil{
 				return err
 			}
-			for _, e := range *envs{
-				if e.Name == name{
-					return conf.SetCurrentEnv(&e)
-					
-				}
+
+			e, err := envs.GetFromName(name)
+			if err !=nil{
+				return err
 			}
 
-			return errors.New(name + ": no such environment found")
+			return conf.SetCurrentEnv(e)
 		},
 	}
 	return &cmd

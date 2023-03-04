@@ -188,10 +188,5 @@ func GetCurrentEnv()(*wine.Env, error){
 		return nil, err
 	}
 
-	for _, e:= range *envs{
-		if e.Name==currentEnvName{
-			return &e, err
-		}
-	}
-	return nil, wine.ErrNoSuchEnv
+	return envs.GetFromName(currentEnvName)
 }
