@@ -46,6 +46,7 @@ func rootCmd ()(*cobra.Command){
 		run.Root(),
 		set.Root(),
 		newInitCmd(),
+		newWineTricksCmd(),
 	)
 
 	return &cmd
