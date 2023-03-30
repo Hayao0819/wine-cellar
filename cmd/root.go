@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 	"path"
-	"fmt"
+	//"fmt"
 
 	"github.com/Hayao0819/wine-cellar/conf"
 	"github.com/spf13/cobra"
@@ -25,6 +25,7 @@ func rootCmd ()(*cobra.Command){
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			conf.Initilize()
 		},
+		/*
 		RunE: func(cmd *cobra.Command, args []string) error {
 			e, err := conf.GetCurrentEnv()
 			if err !=nil{
@@ -33,6 +34,7 @@ func rootCmd ()(*cobra.Command){
 			fmt.Println(e.Name)
 			return nil
 		},
+		*/
 	}
 
 	cmd.PersistentFlags().StringVarP(&conf.ConfDir, "config", "", func()(string){
