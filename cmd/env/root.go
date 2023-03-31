@@ -13,7 +13,7 @@ func Root ()(*cobra.Command){
 		Long: `WINEPREFIXの追加や削除を行います。`,
 	}
 
-	cmd.AddCommand(newListCmd(), newAddCmd())
+	cmd.AddCommand(newListCmd(), newAddCmd(), newEditCmd())
 
 	return &cmd
 }
