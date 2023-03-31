@@ -9,7 +9,7 @@ import (
 
 func newAddCmd()(*cobra.Command){
 	cmd := cobra.Command{
-		Use:   "add NAME ARCH PATH VERSION",
+		Use:   "add NAME ARCH PATH CMD",
 		Short: "WINEPREFIXを登録",
 		Long: `WINEPREFIXをwine-cellarに登録し、管理対象にします。`,
 		Args: cobra.ExactArgs(4), // [name] [arch] [path] [version]
