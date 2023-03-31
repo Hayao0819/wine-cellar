@@ -25,7 +25,7 @@ func newListCmd()(*cobra.Command){
 			}
 			
 			for _, e:= range *envs{
-				fmt.Println(e.Name)
+				fmt.Printf("%s: WINEARCH=%s WINEPREFIX=%s CMD=%s\n", e.Name, e.Arch.Name, e.Prefix, e.Version.Cmd)
 			}
 			return nil
 		},
